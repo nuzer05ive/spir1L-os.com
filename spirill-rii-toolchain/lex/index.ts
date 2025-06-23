@@ -28,10 +28,10 @@ export function lex(source: string): Token[] {
 
   while (i < source.length) {
     let matched = false;
+    const slice = source.slice(i);           // examine from cursor forward
     for (const rule of rules) {
-      rule.regex.lastIndex = i;
-      const m = rule.regex.exec(source);
-      if (m && m.index === i) {
+      const m = rule.regex.exec(slice);      // match must start at 0
+      if (m && m.index === 0) {
         matched = true;
         const value = rule.value ? rule.value(m) : m[0];
         if (rule.type) tokens.push(t(rule.type, value, line, col));
