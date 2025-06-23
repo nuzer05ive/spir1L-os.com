@@ -13,6 +13,11 @@ module.exports = {
       displayName: 'pxk',
       testMatch: ['<rootDir>/src/__tests__/**/portal.spec.ts'],
       transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
+    },
+    {
+      displayName: 'lex',
+      testMatch: ['<rootDir>/spirill-rii-toolchain/**/__tests__/**/*.spec.ts'],
+      transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
     }
   ]
 };
