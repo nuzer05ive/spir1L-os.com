@@ -13,8 +13,6 @@ export function parse(src: string): N.Script {
 
   const script: N.Script = { kind: 'Script', body: [] };
   eat('B_BEGIN');
-  // TEMP: tolerate statements until ⊕end so CI passes
-  while (cur().type !== 'B_END') pos++;
 
   while (cur().type === 'BREATH') {
     const op = cur().value.split('.')[1] as 'in'|'out'|'pause';
@@ -25,7 +23,6 @@ export function parse(src: string): N.Script {
   }
 
   // TEMP skip-loop until ⊕end
-  while (cur().type !== 'B_END') pos++;
   eat('B_END');
   eat('EOF');
   return script;
