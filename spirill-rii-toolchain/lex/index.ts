@@ -4,20 +4,29 @@ export function lex(source: string) {
   const tokens = [];
   let i = 0, line = 1, col = 1;
 
+  const rules: { re: RegExp; kind?: TokenType; skip?: true }[] = [
+    // ── structural glyphs ───────────────────────────
     { re: /⊕begin\b/, kind: 'B_BEGIN' },
     { re: /⊕end\b/,   kind: 'B_END'   },
+
+    // ── keywords ────────────────────────────────────
     { re: /breath\b/, kind: 'BREATH'  },
-    { re: /\(/,       kind: 'LPAREN'  },
-    { re: /\)/,       kind: 'RPAREN'  },
-    { re: /,/,         kind: 'COMMA'   },
-    { re: /=/,         kind: 'EQ'      },
-    { re: /[0-9.]+/,   kind: 'NUMBER'  },
-    { re: /[+\-*\/]/, kind: 'OP'      },
+
+    // ── punctuation ────────────────────────────────
+    { re: /\(/, kind: 'LPAREN' },
+    { re: /\)/, kind: 'RPAREN' },
+    { re: /,/,  kind: 'COMMA'  },
+    { re: /=/,  kind: 'EQ'     },
+
+    // ── numbers & math operators ───────────────────
+    { re: /[0-9.]+/,   kind: 'NUMBER' },
+    { re: /[+\-*\/]/,  kind: 'OP'     },
+
+    // ── identifiers ────────────────────────────────
     { re: /[A-Za-z_][A-Za-z0-9_]*/, kind: 'IDENT' },
-    { re: /\s+/,       skip: true },
 
-    { re: /\s+/,      skip: true },            // whitespace
-
+    // ── whitespace ────────────────────────────────
+    { re: /\s+/, skip: true },
   ];
 
   while (i < source.length) {
@@ -25,12 +34,12 @@ export function lex(source: string) {
     for (const r of rules) {
       const m = source.slice(i).match(r.re);
       if (m && m.index === 0) {
-        if (!r.skip) tokens.push(t((r.kind as TokenType) ?? "IDENT", m[0], line, col));
+        if (!r.skip) tokens.push(t(r.kind as TokenType, m[0], line, col));
         const text = m[0];
         const nl = text.match(/\n/g);
         line += nl ? nl.length : 0;
-        col = nl ? text.length - text.lastIndexOf('\n') : col + text.length;
-        i += text.length;
+        col  = nl ? text.length - text.lastIndexOf('\n') : col + text.length;
+        i   += text.length;
         matched = true;
         break;
       }
