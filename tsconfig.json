@@ -10,11 +10,16 @@
       "node",
       "jest"
     ],
-    "outDir": "build"
+    "outDir": "build",
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ]
   },
   "include": [
     "src",
     "spirill-rii-toolchain",
-    "src/types"
+    "src/types",
+    "types"
   ]
 }
