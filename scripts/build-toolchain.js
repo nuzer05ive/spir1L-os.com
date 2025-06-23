@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require("ts-node/register");
 /**
  * Simple build driver: lex → parse → emit IR
  * Usage:  node scripts/build-toolchain.js examples/hello_spiral.rii build/hello.ir.json
