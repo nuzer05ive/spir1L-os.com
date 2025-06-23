@@ -27,6 +27,11 @@ jobs:
         with:
           name: portal-binaries
           path: .gate/dist/*
+
+      - name: Deploy to Netlify (prod)
+        run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
   comment:
     needs: compile-rii
     runs-on: ubuntu-latest
