@@ -5,9 +5,13 @@ export function lex(source: string) {
   let i = 0, line = 1, col = 1;
 
   const rules = [
-    { re: /[0-9.]+/,  kind: 'num' },   // numbers
-    { re: /[+\-*\/]/, kind: 'op'  },   // + - * /
-    { re: /\s+/,      skip: true },    // whitespace
+
+    { re: /[0-9.]+/,  kind: 'NUMBER' },   // numbers
+
+    { re: /[+\-*\/]/, kind: 'OP'     },   // + - * /
+
+    { re: /\s+/,      skip: true },            // whitespace
+
   ];
 
   while (i < source.length) {
