@@ -24,9 +24,9 @@ jobs:
         run: |
           mkdir -p .gate/dist
           cat <<EOF > .gate/dist/index.html
-<!doctype html>
-<html><head><meta charset="utf-8"><title>Spir1L-OS Portal</title></head><body><h1>Spir1L-OS – Portal Binaries</h1><p>Build: </p></body></html>
-EOF
+            <!doctype html>
+            <html><head><meta charset="utf-8"><title>Spir1L-OS Portal</title></head><body><h1>Spir1L-OS – Portal Binaries</h1><p>Build: </p></body></html>
+          EOF
           shopt -s globstar
           for f in $(ls **/*.rii); do
             base=$(basename "$f" .rii)
