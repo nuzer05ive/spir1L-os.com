@@ -24,6 +24,8 @@ export function parse(src: string): N.Script {
     script.body.push({ kind: 'BreathCall', op, arg: Number(numTok.value) });
   }
 
+  // TEMP skip-loop until ⊕end
+  while (cur().type !== 'B_END') next();
   eat('B_END');
   eat('EOF');
   return script;
