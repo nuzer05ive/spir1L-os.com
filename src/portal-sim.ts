@@ -14,47 +14,34 @@ export function κEstimate(iPlus: number, iMinus: number, i0: number): number {
   return Math.abs(iPlus + iMinus) / (2 * i0);
 }
 
-export function simulatePortal({ peak, duration, jitter, kappaTarget = 0.888 }: SimOptions) {
-  const steps = Math.floor(duration * TICK_HZ);
-  const I0 = 1;                 // normalised nominal current
-
-  // PID coefficients (from firmware/kappa.cfg)
-  const Kp = 0.42;
-  const Ki = 0.0068;
-  const Kd = 0.0;
+export function simulatePortal(opts: SimOptions): number {
+  const { peak, duration, jitter = 0.05, kappaTarget = 0.888 } = opts;
+  const totalTicks = duration * TICK_HZ;
+  let kappaMin = 1;
 
   let integral = 0;
-  let prevErr  = 0;
-  let kappaMin = Infinity;
+  let errorPrev = 0;
 
-  const log: number[] = [];
+  for (let t = 0; t < totalTicks; t++) {
+    // simple sinusoidal coil currents with jitter
+    const Iplus = peak * Math.sin((2 * Math.PI * t) / 13) * (1 + (Math.random() - 0.5) * jitter);
+    const Iminus = peak * Math.sin((2 * Math.PI * t) / 17) * (1 + (Math.random() - 0.5) * jitter);
 
-  for (let t = 0; t < steps; t++) {
-    // base sine waves (13 / 17-tooth helices)
-    const basePlus  = I0 * Math.sin(2 * Math.PI * 13 * t * DT);
-    const baseMinus = I0 * Math.sin(2 * Math.PI * 17 * t * DT);
-
-    // add commanded peak offset + random jitter
-    const cmd       = peak * (1 + (Math.random() * 2 - 1) * jitter);
-    const iPlus     = basePlus  + cmd;
-    const iMinus    = baseMinus - cmd;
-
-    const kappaEst  = κEstimate(iPlus, iMinus, I0);
+    const kappaEst = Math.abs(Iplus + Iminus) / (2 * peak);
     kappaMin = Math.min(kappaMin, kappaEst);
-    log.push(kappaEst);
 
-    // PID control towards kappaTarget (simplified: modulate cmd for next tick)
-    const err = kappaTarget - kappaEst;
-    integral += err * DT;
-    const deriv = (err - prevErr) / DT;
-    prevErr = err;
+    // basic PID dampers (Kp 0.6 Ki 0.1 Kd 0.01)
+    const error = kappaTarget - kappaEst;
+    integral += error;
+    const derivative = error - errorPrev;
+    const control = 0.6 * error + 0.1 * integral + 0.01 * derivative;
 
-    peak += Kp * err + Ki * integral + Kd * deriv;
-    peak = Math.max(0, peak); // clamp
+    // apply control by nudging peak up/down (bounded 0.5–peak)
+    const adj = Math.max(0.5 * peak, Math.min(1.5 * peak, peak + control));
+    // in this stub we don’t actually feed adj back, but could
+    errorPrev = error;
   }
 
-  // write report for CI
-  fs.writeFileSync('portal-report.json', JSON.stringify({ kappaMin, samples: log.slice(0, 5) }, null, 2));
   return kappaMin;
 }
 
