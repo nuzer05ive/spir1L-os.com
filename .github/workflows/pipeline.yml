@@ -16,8 +16,13 @@ jobs:
       - run: pnpm pxk:simulate --peak 1.2 --duration 10
       - run: pnpm wc:build packages/example.rii --out build/example.riic
       - run: pnpm spiral:e2e --scenario ci
-      - name: Deploy to Netlify (green)
+      - name: Deploy to Netlify (prod)
+
         if: success()
-      - run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
+
+        run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
+
         env:
+
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
