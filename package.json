@@ -19,7 +19,8 @@
     "spiral:e2e": "node scripts/e2e.js",
     "tiime": "node scripts/tiime-cli.js",
     "opt:test": "jest --selectProjects opt",
-    "emit:test": "jest --selectProjects emit"
+    "emit:test": "jest --selectProjects emit",
+    "portal:gate": "node scripts/ux-report.js .gate/dist 256"
   },
   "devDependencies": {
     "typescript": "^5.4.2",

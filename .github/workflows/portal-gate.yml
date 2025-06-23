@@ -1,0 +1,50 @@
+name: Portal-Gate
+
+on:
+  pull_request:
+    branches: [core]
+
+jobs:
+  compile-rii:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - name: Compile all .rii ➜ .riic
+        run: |
+          mkdir -p .gate/dist
+          shopt -s globstar
+          for f in $(ls **/*.rii); do
+            base=$(basename "$f" .rii)
+            node scripts/build-toolchain.js "$f" ".gate/dist/$base.riic"
+          done
+      - name: UX Size Gate
+        run: node scripts/ux-report.js .gate/dist 256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portal-binaries
+          path: .gate/dist/*
+  comment:
+    needs: compile-rii
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: portal-binaries
+          path: .gate/dist
+      - run: node scripts/ux-report.js .gate/dist 256 --md > comment.md
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('comment.md','utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
