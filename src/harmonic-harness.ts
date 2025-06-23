@@ -1,5 +1,5 @@
 import { goldenRatio } from "../spirill-rii-toolchain/lex/constants";
-import histogram from "ascii-histogram";
+import histogram from "ascii-histogram"; // now typed via local declaration
 
 // Sieve-based prime resonance function
 function primeResonance(n: number): number {
