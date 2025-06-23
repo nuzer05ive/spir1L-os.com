@@ -6,7 +6,12 @@ module.exports = {
   projects: [
     {
       displayName: 'hv221',
-      testMatch: ['<rootDir>/src/__tests__/**/*.spec.ts'],
+      testMatch: ['<rootDir>/src/__tests__/**/hv221.spec.ts'],
+      transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
+    },
+    {
+      displayName: 'pxk',
+      testMatch: ['<rootDir>/src/__tests__/**/portal.spec.ts'],
       transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
     }
   ]

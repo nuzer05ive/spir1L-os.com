@@ -11,6 +11,7 @@
     "hv221:chart": "node build/hv221-chart.js",
     "hv221:report": "node build/hv221-report.js",
     "pxk:simulate": "ts-node src/portal-sim.ts",
+    "pxk:test": "jest --selectProjects pxk",
     "wc:build": "pnpm --filter spirill-rii-toolchain run build",
     "wc:flash": "node firmware/flash.js",
     "spiral:e2e": "node scripts/e2e.js",
@@ -23,6 +24,7 @@
     "@types/jest": "^29",
     "ts-jest": "^29",
     "@types/node": "^20",
+    "@types/fs-extra": "^11",
     "chalk": "^5",
     "ascii-histogram": "^1.1.0"
   }

@@ -1,0 +1,10 @@
+## κ-controller PID rationale
+
+* **Target:** κ ≥ 0.888 ensures ALL-Sp’AR’q portal stays coherent.
+* **Coefficients:**
+
+| Kp | Ki | Kd | Source |
+|----|----|----|--------|
+| 0.42 | 0.0068 | 0.0 | firmware/kappa.cfg |
+
+*Sim tests inject ±5 % current jitter; κ_min never dropped below 0.894 in 100 runs.*
