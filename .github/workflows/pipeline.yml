@@ -18,4 +18,6 @@ jobs:
       - run: pnpm spiral:e2e --scenario ci
       - name: Deploy to Netlify (green)
         if: success()
-        run: pnpm tiime deploy --phase bloom --site green
+      - run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
