@@ -6,8 +6,15 @@
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "outDir": "build"
   },
-  "include": ["src", "spirill-rii-toolchain"]
+  "include": [
+    "src",
+    "spirill-rii-toolchain",
+    "src/types"
+  ]
 }
