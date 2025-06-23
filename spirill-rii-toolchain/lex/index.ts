@@ -19,7 +19,7 @@ export function lex(source: string) {
     for (const r of rules) {
       const m = source.slice(i).match(r.re);
       if (m && m.index === 0) {
-        if (!r.skip) tokens.push(t(r.kind ?? 'tok', m[0], line, col));
+        if (!r.skip) tokens.push(t((r.kind as TokenType) ?? "IDENT", m[0], line, col));
         const text = m[0];
         const nl = text.match(/\n/g);
         line += nl ? nl.length : 0;
