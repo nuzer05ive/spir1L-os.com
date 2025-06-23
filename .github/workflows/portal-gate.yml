@@ -5,38 +5,45 @@ on:
     branches: [core]
 
 jobs:
-  compile-rii:
+  gate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v3
         with:
           version: 9
+
       - run: pnpm install --frozen-lockfile
+
+      # ── Compile every .rii ─────────────────────────────────────────────
       - name: Compile all .rii ➜ .riic
         run: |
           mkdir -p .gate/dist
           shopt -s globstar
-          for f in $(ls **/*.rii); do
-            base=$(basename "$f" .rii)
-            node scripts/build-toolchain.js "$f" ".gate/dist/$base.riic"
+          for f in \$(ls **/*.rii); do
+            base=\$(basename "\$f" .rii)
+            node scripts/build-toolchain.js "\$f" ".gate/dist/\$base.riic"
           done
+
+      # ── Size gate (≤256 B each) ───────────────────────────────────────
       - name: UX Size Gate
         run: node scripts/ux-report.js .gate/dist 256
+
+      # ── Upload binaries as artifact ───────────────────────────────────
       - uses: actions/upload-artifact@v4
-        run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
-
-        env:
-
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         with:
           name: portal-binaries
           path: .gate/dist/*
 
+      # ── Deploy to Netlify (production) ────────────────────────────────
+      - name: Deploy to Netlify (prod)
+        run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
   comment:
-    needs: compile-rii
+    needs: gate
     runs-on: ubuntu-latest
     if: success()
     steps:
@@ -44,7 +51,9 @@ jobs:
         with:
           name: portal-binaries
           path: .gate/dist
+
       - run: node scripts/ux-report.js .gate/dist 256 --md > comment.md
+
       - uses: actions/github-script@v7
         with:
           script: |
