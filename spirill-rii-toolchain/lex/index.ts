@@ -1,4 +1,4 @@
-import { t } from './token';
+import { t, TokenType } from './token';
 
 export function lex(source: string) {
   const tokens = [];
