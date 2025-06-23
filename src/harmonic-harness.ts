@@ -1,3 +1,4 @@
+declare module "ascii-histogram";
 import { goldenRatio } from "../spirill-rii-toolchain/lex/constants";
 import histogram from "ascii-histogram"; // now typed via local declaration
 
