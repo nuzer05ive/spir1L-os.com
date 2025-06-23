@@ -1,8 +1,11 @@
 declare module "ascii-histogram" {
-  interface HistogramOptions {
+  export interface HistogramOptions {
     bar?: string;
     width?: number;
   }
-  function histogram(values: Record<string, number>, opts?: HistogramOptions): string;
+  function histogram(
+    data: number[] | Record<string, number>,
+    options?: HistogramOptions
+  ): string;
   export default histogram;
 }
