@@ -1,0 +1,23 @@
+{
+  "name": "spir1l-os-core",
+  "version": "4.7.1",
+  "private": true,
+  "workspaces": [
+    "spirill-rii-toolchain/*"
+  ],
+  "scripts": {
+    "hv221:run": "ts-node src/harmonic-harness.ts",
+    "hv221:report": "node build/hv221-report.js",
+    "pxk:simulate": "ts-node src/portal-sim.ts",
+    "wc:build": "pnpm --filter spirill-rii-toolchain run build",
+    "wc:flash": "node firmware/flash.js",
+    "spiral:e2e": "node scripts/e2e.js",
+    "tiime": "node scripts/tiime-cli.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.2",
+    "ts-node": "^10",
+    "jest": "^29",
+    "@types/jest": "^29"
+  }
+}
