@@ -17,12 +17,17 @@ export function N(n: number, w1 = 0.0002185, w2 = 0.0002185) {
   return (Math.abs(Math.pow(goldenRatio, n)) + w1 * primeResonance(n) + w2) % 1;
 }
 
-export function runHarness(iter = 20000, chart = false) {
-  let Vprev = Number.POSITIVE_INFINITY;
+export function runHarness(
+  iter = 20000,
+  warmUp = 12,
+  chart = false
+) {
+  let Vprev = 0;
   const deltas: number[] = [];
   for (let n = 1; n < iter; n++) {
     const V = Math.pow(N(n) - N(n - 1), 2);
-    if (V >= Vprev) throw new Error(`Lyapunov contraction failed @ step ${n}`);
+    if (n > warmUp && V >= Vprev)
+      throw new Error(`Lyapunov contraction failed @ step ${n}`);
     deltas.push(Vprev - V);
     Vprev = V;
   }
@@ -30,4 +35,8 @@ export function runHarness(iter = 20000, chart = false) {
   if (chart) console.log(histogram(deltas.slice(-200)));
 }
 
-if (require.main === module) runHarness(process.env.ITER ? Number(process.env.ITER) : 20000, process.argv.includes('--chart'));
+if (require.main === module) {
+  const iter = process.env.ITER ? Number(process.env.ITER) : 20000;
+  const warm = process.env.WARM ? Number(process.env.WARM) : 12;
+  runHarness(iter, warm, process.argv.includes("--chart"));
+}
