@@ -17,7 +17,9 @@
     "parse:test": "jest --selectProjects parse",
     "wc:flash": "node firmware/flash.js",
     "spiral:e2e": "node scripts/e2e.js",
-    "tiime": "node scripts/tiime-cli.js"
+    "tiime": "node scripts/tiime-cli.js",
+    "opt:test": "jest --selectProjects opt",
+    "emit:test": "jest --selectProjects emit"
   },
   "devDependencies": {
     "typescript": "^5.4.2",

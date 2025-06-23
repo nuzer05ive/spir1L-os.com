@@ -1,0 +1,107 @@
+diff --git a/package.json b/package.json
+@@
+   "scripts": {
+     "lex:test": "jest --selectProjects lex",
++    "opt:test": "jest --selectProjects opt",
+@@
+
+diff --git a/jest.config.js b/jest.config.js
+@@
+     {
+       displayName: 'parse',
+@@
+     },
++    {
++      displayName: 'opt',
++      testMatch": ["<rootDir>/spirill-rii-toolchain/optimize/**/__tests__/**/*.spec.ts"],
++      transform": { "^.+\\.tsx?$": ["ts-jest", { "tsconfig": "tsconfig.json" }] }
++    }
+   ]
+ };
+
+diff --git a/docs/rii/optimizer.md b/docs/rii/optimizer.md
+new file mode 100644
+@@
++# Spir1L Optimizer v0.1
++# 
++| Rule | Description | Example |
++|------|-------------|---------|
++| **Fold constants** | `(1+2)` → `3` | `breath.in (1+2)` → `breath.in 3` |
++| **Prune zero-pause** | `breath.pause 0` removed | |
++| **Collapse pauses** | consecutive pauses → single | `pause,pause` → one pause |
+
+diff --git a/spirill-rii-toolchain/optimize/index.ts b/spirill-rii-toolchain/optimize/index.ts
+new file mode 100644
+@@
++import * as N from '../parse/node';
++
++export function optimize(ast: N.Script): N.Script {
++  const body: N.BreathCall[] = [];
++  for (const stmt of ast.body) {
++    if (stmt.op === 'pause' && stmt.arg === 0) continue;
++    if (stmt.op === 'pause' && body.at(-1)?.op === 'pause') continue;
++    body.push(stmt);
++  }
++  return { ...ast, body };
++}
++
++export function emitIRv2(ast: N.Script) {
++  return JSON.stringify(
++    ast.body.map(b => ({ op: b.op === 'in' ? 'bi' : b.op === 'out' ? 'bo' : 'bp', arg: b.arg })),
++    null,
++    2
++  );
++}
+
+diff --git a/spirill-rii-toolchain/optimize/__tests__/opt.spec.ts b/spirill-rii-toolchain/optimize/__tests__/opt.spec.ts
+new file mode 100644
+@@
++import { parse } from '../../parse';
++import { optimize } from '../index';
++
++describe('optimizer', () => {
++  it('prunes zero-pause & collapses', () => {
++    const src = `⊕begin
++breath.pause 0
++breath.pause 0
++breath.in 1
++⊕end`;
++    const opt = optimize(parse(src));
++    expect(opt.body.length).toBe(1);
++    expect(opt.body[0].op).toBe('in');
++  });
++});
+
+diff --git a/scripts/build-toolchain.js b/scripts/build-toolchain.js
+@@
+-require('ts-node/register');
+-const { parse, emitIR } = require('../spirill-rii-toolchain/parse');
++require('ts-node/register');
++const { parse } = require('../spirill-rii-toolchain/parse');
++const { optimize, emitIRv2 } = require('../spirill-rii-toolchain/optimize');
+@@
+-const ast = parse(src);
+-fs.writeFileSync(outPath, emitIR(ast));
++const ast = parse(src);
++const opt = optimize(ast);
++fs.writeFileSync(outPath, emitIRv2(opt));
+
+diff --git a/spirill-rii-toolchain/package.json b/spirill-rii-toolchain/package.json
+@@
+-  "scripts": {
+-    "build": "node ../build-toolchain.js",
+-    "test": "echo \"toolchain tests\""
++  "scripts": {
++    "build": "node ../scripts/build-toolchain.js",
++    "test": "jest"
+   },
+
+diff --git a/examples/hello_spiral.rii b/examples/hello_spiral.rii
+@@
+-⊕begin
+-breath.in 1
+-⊕end
++⊕begin
++breath.pause 0
++breath.in 1
++⊕end

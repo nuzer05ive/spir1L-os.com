@@ -1,3 +1,5 @@
 ⊕begin
+breath.pause 0
 breath.in 1
 ⊕end
+

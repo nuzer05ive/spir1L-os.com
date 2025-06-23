@@ -5,6 +5,11 @@ module.exports = {
   modulePathIgnorePatterns: ['<rootDir>/spir1L-os.com'],
   projects: [
     {
+      displayName: 'emit',
+      testMatch: ["<rootDir>/spirill-rii-toolchain/emit/**/__tests__/**/*.spec.ts"],
+      transform: { "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.json" }] }
+    },
+    {
       displayName: 'hv221',
       testMatch: ['<rootDir>/src/__tests__/**/hv221.spec.ts'],
       transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
@@ -22,6 +27,11 @@ module.exports = {
     {
       displayName: 'parse',
       testMatch: ['<rootDir>/spirill-rii-toolchain/parse/**/__tests__/**/*.spec.ts'],
+      transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
+    },
+    {
+      displayName: 'opt',
+      testMatch: ['<rootDir>/spirill-rii-toolchain/optimize/**/__tests__/**/*.spec.ts'],
       transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
     }
   ]

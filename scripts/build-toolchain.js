@@ -4,6 +4,7 @@
  * Usage:  node scripts/build-toolchain.js <src.r ii> <out.ir.json>
  */
 require('ts-node/register');
+const { encodeIR } = require('../spirill-rii-toolchain/emit');
 
 const fs = require('fs');
 const { parse } = require('../spirill-rii-toolchain/parse');
