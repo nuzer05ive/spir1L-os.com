@@ -1,0 +1,121 @@
+────────────────────────────────────────── 1. package.json
+@@
+     "wc:build": "pnpm --filter spirill-rii-toolchain run build",
++    "parse:test": "jest --selectProjects parse",
+@@
+   "workspaces": [
+     "spirill-rii-toolchain/*"
+   ],
+   "scripts": {
+@@
++    "parse:test": "jest --selectProjects parse",
+────────────────────────────────────────── 2. jest.config.js
+@@
+     {
+       displayName: 'lex',
+@@
+     },
++    {
++      displayName: 'parse',
++      testMatch: ['<rootDir>/spirill-rii-toolchain/parse/**/__tests__/**/*.spec.ts'],
++      transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
++    }
+   ]
+ };
+────────────────────────────────────────── 3. spirill-rii-toolchain/parse/node.ts  (NEW)
++export interface NumberLit  { kind: 'NumberLit'; value: number; }
++export interface BreathCall { kind: 'BreathCall'; op: 'in'|'out'|'pause'; arg: number; }
++export interface Script     { kind: 'Script'; body: BreathCall[]; }
++
++export type ASTNode = NumberLit | BreathCall | Script;
+────────────────────────────────────────── 4. spirill-rii-toolchain/parse/index.ts  (NEW)
++import { lex } from '../lex';
++import { Token } from '../lex/token';
++import * as N from './node';
++
++export function parse(src: string): N.Script {
++  const tokens = lex(src);
++  let i = 0;
++  function cur(): Token { return tokens[i]; }
++  function eat(type: Token['type']) {
++    if (cur().type !== type) throw new SyntaxError(`Expected ${type} at ${cur().line}:${cur().col}`);
++    i++;
++  }
++
++  const script: N.Script = { kind: 'Script', body: [] };
++  eat('B_BEGIN');
++
++  while (cur().type === 'BREATH') {
++    const op = cur().value.split('.')[1] as 'in'|'out'|'pause';
++    eat('BREATH');
++    const numTok = cur();
++    eat('NUMBER');
++    script.body.push({ kind: 'BreathCall', op, arg: Number(numTok.value) });
++  }
++
++  eat('B_END');
++  eat('EOF');
++  return script;
++}
++
++// Tiny IR emitter – converts AST to JSON IR for now
++export function emitIR(ast: N.Script): string {
++  return JSON.stringify(ast, null, 2);
++}
++
++// CLI helper:  node parse.js examples/hello_spiral.rii > build/hello.ir.json
++if (require.main === module) {
++  const fs = require('fs');
++  const src = fs.readFileSync(process.argv[2] || 0, 'utf8');
++  console.log(emitIR(parse(src)));
++}
+────────────────────────────────────────── 5. spirill-rii-toolchain/parse/__tests__/parse.spec.ts  (NEW)
++import { parse } from '../index';
++
++describe('parser', () => {
++  it('builds AST for hello_spiral', () => {
++    const src = '⊕begin\nbreath.in 1\n⊕end';
++    const ast = parse(src);
++    expect(ast.body.length).toBe(1);
++    expect(ast.body[0]).toEqual({ kind:'BreathCall', op:'in', arg:1 });
++  });
++});
+────────────────────────────────────────── 6. spirill-rii-toolchain/package.json  (PATCH existing or create) 
+@@
+   "scripts": {
+     "build": "node ../build-toolchain.js",        // placeholder
++    "test": "echo \"toolchain tests\""
+   },
+────────────────────────────────────────── 7. scripts/build-toolchain.js  (NEW)
++#!/usr/bin/env node
++/**
++ * Simple build driver: lex → parse → emit IR
++ * Usage:  node scripts/build-toolchain.js examples/hello_spiral.rii build/hello.ir.json
++ */
++const { parse, emitIR } = require('../spirill-rii-toolchain/parse');
++const fs = require('fs');
++
++const [srcPath, outPath] = process.argv.slice(2);
++if (!srcPath || !outPath) {
++  console.error('Usage: build-toolchain <src.r  ii> <out.ir.json>');
++  process.exit(1);
++}
++const src = fs.readFileSync(srcPath, 'utf8');
++const ast = parse(src);
++fs.writeFileSync(outPath, emitIR(ast));
++console.log('IR written →', outPath);
+────────────────────────────────────────── 8. docs/rii/ast.md  (NEW)
++# Spir1L AST v0.1
++
++```jsonc
++{
++  "kind": "Script",
++  "body": [
++    { "kind": "BreathCall", "op": "in", "arg": 1 }
++  ]
++}
++```
++
++The AST is intentionally tiny for v0.1.
++Future revisions will introduce `Assign`, `Call`, and control-flow nodes.
++

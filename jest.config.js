@@ -18,6 +18,11 @@ module.exports = {
       displayName: 'lex',
       testMatch: ['<rootDir>/spirill-rii-toolchain/**/__tests__/**/*.spec.ts'],
       transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
+    },
+    {
+      displayName: 'parse',
+      testMatch: ['<rootDir>/spirill-rii-toolchain/parse/**/__tests__/**/*.spec.ts'],
+      transform: { '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }] }
     }
   ]
 };
