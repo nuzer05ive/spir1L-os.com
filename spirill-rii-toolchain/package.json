@@ -1,0 +1,8 @@
+{
+  "name": "spirill-rii-toolchain",
+  "private": true,
+  "scripts": {
+    "build": "node ../scripts/build-toolchain.js",
+    "test": "echo \"toolchain tests\""
+  }
+}
