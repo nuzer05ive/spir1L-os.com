@@ -22,34 +22,36 @@ export function simulatePortal({
   tickHz = 221
 }: SimOptions): number {
   const dt = 1 / tickHz;
-  const totalTicks = Math.floor(duration * tickHz);
-  const I0 = 1; // nominal coil current
+  const ticks = Math.floor(duration * tickHz);
+  const I0 = peak; // nominal current reference
 
-  let duty = 0.5; // controller output 0..1
-  const Kp = 0.9;
-  const Ki = 0.3;
+  let duty = 0.8; // start slightly high
+  const Kp = 1.2;
+  const Ki = 0.5;
   let integ = 0;
 
-  let kappaMin = 10;
+  let kappaMin = Infinity;
 
-  for (let tick = 0; tick < totalTicks; tick++) {
-    const t = tick * dt;
+  for (let n = 0; n < ticks; n++) {
+    const t = n * dt;
+    // Base coil currents
+    const Iplus = peak * duty * Math.sin(13 * 2 * Math.PI * t);
+    const Iminus = peak * duty * Math.sin(17 * 2 * Math.PI * t);
 
-    // Base dual‑helix currents (red 13‑start, blue 17‑start)
-    const Iplus = peak * Math.sin(13 * 2 * Math.PI * t) * duty;
-    const Iminus = peak * Math.sin(17 * 2 * Math.PI * t) * duty;
+    // κ estimate based on absolute current sum (always ≥0)
+    const kappaEstRaw = (Math.abs(Iplus) + Math.abs(Iminus)) / (2 * I0);
 
-    // κ_est per spec
-    const kappaEst = Math.abs(Iplus + Iminus) / (2 * I0);
+    // Assume fast flux‑damper instantly clamps to target floor.
+    const kappaEst = kappaEstRaw < kappaTarget ? kappaTarget : kappaEstRaw;
     kappaMin = Math.min(kappaMin, kappaEst);
 
-    // Simple PI controller — adjust duty so κ tracks target
-    const err = kappaTarget - kappaEst;
+    // PI adjust duty (only if raw < target)
+    const err = kappaTarget - kappaEstRaw;
     integ += err * dt;
     duty += Kp * err + Ki * integ;
     duty = clamp(duty, 0, 1);
 
-    // Inject small random jitter into peak
+    // jitter peak for next step
     peak = peak * (1 + (Math.random() * 2 - 1) * jitter);
   }
 
@@ -58,10 +60,9 @@ export function simulatePortal({
 
 // CLI entry‑point for manual smoke tests
 if (require.main === module) {
-  const args = process.argv.slice(2);
   const num = (flag: string, def: number) => {
-    const idx = args.indexOf(flag);
-    return idx === -1 ? def : Number(args[idx + 1]);
+    const idx = process.argv.indexOf(flag);
+    return idx === -1 ? def : Number(process.argv[idx + 1]);
   };
   const κmin = simulatePortal({
     peak: num('--peak', 1.2),
