@@ -4,11 +4,17 @@ export function lex(source: string) {
   const tokens = [];
   let i = 0, line = 1, col = 1;
 
-  const rules = [
-
-    { re: /[0-9.]+/,  kind: 'NUMBER' },   // numbers
-
-    { re: /[+\-*\/]/, kind: 'OP'     },   // + - * /
+    { re: /⊕begin\b/, kind: 'B_BEGIN' },
+    { re: /⊕end\b/,   kind: 'B_END'   },
+    { re: /breath\b/, kind: 'BREATH'  },
+    { re: /\(/,       kind: 'LPAREN'  },
+    { re: /\)/,       kind: 'RPAREN'  },
+    { re: /,/,         kind: 'COMMA'   },
+    { re: /=/,         kind: 'EQ'      },
+    { re: /[0-9.]+/,   kind: 'NUMBER'  },
+    { re: /[+\-*\/]/, kind: 'OP'      },
+    { re: /[A-Za-z_][A-Za-z0-9_]*/, kind: 'IDENT' },
+    { re: /\s+/,       skip: true },
 
     { re: /\s+/,      skip: true },            // whitespace
 

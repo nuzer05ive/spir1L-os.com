@@ -2,7 +2,7 @@ export type TokenType =
   | 'B_BEGIN' | 'B_END'
   | 'BREATH'  | 'IDENT' | 'NUMBER'
   | 'LPAREN'  | 'RPAREN' | 'COMMA' | 'EQ'
-  | 'op' | 'OP' | 'EOF';
+  | 'op' | 'OP' | 'OP' | 'EOF';
 
 export interface Token {
   type: TokenType;
