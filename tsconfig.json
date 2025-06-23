@@ -5,6 +5,7 @@
     "moduleResolution": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
+    "types": ["node"],
     "outDir": "build"
   },
   "include": ["src", "spirill-rii-toolchain"]
