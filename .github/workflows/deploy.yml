@@ -1,7 +1,9 @@
 name: CI & Deploy
+
 on:
   push:
-    branches: [ main, feat/** ]
+    branches: [ main, chore/**, feat/** ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
