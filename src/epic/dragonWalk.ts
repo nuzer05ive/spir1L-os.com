@@ -1,3 +1,3 @@
-export function dragonWalk(seed = 0) {
-  console.log('dragonWalk starting', seed);
+export function dragonWalk(n: number): { residue: number; helix: number }[] {
+  return Array.from({ length: n }, (_, i) => ({ residue: i % 7, helix: i % 5 }));
 }
