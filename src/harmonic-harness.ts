@@ -1,6 +1,6 @@
 // @ts-nocheck
 // @ts-ignore  // ascii-histogram has no types; ignore for CI
-import { goldenRatio } from "../spirill-rii-toolchain/lex/constants";
+import { goldenRatio } from "./math/constants";
 import histogram from "ascii-histogram"; // now typed via local declaration
 
 // Sieve-based prime resonance function
