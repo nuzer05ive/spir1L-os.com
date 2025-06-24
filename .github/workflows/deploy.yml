@@ -1,0 +1,26 @@
+name: CI & Deploy
+on:
+  push:
+    branches: [ main, feat/** ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with: { version: 9 }
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Lint & Test
+        run: pnpm test
+      - name: Build
+        run: pnpm run build
+      - name: Netlify Deploy
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: ./dist
+          production-deploy: ${{ github.ref == 'refs/heads/main' }}
+          deploy-message: "${{ github.sha }} @ ${{ github.ref }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID:    ${{ secrets.NETLIFY_SITE_ID }}
