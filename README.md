@@ -20,3 +20,10 @@ On activation:
 ## phi43 Roadmap
 - Expansion pack scaffolding added.
 
+
+### Deploy flow
+1. Push to **main** or any feature branch.
+2. GitHub Action runs `pnpm test` ➜ `pnpm run build`.
+3. On success, dist/ is deployed to Netlify (`spir1l-os.com`).
+4. SPA rewrite handled by `netlify.toml` (404 → index.html).
+
