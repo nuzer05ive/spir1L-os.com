@@ -1,16 +1,16 @@
 {
   "name": "spir1l-os-core",
-  "version": "4.7.1",
+  "version": "4.8.0-alpha",
   "private": true,
   "scripts": {
-    "start": "pnpm run dev",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run --run",
     "gen:assets": "tsx src/generation/run.ts",
     "replay:run": "tsx src/replay/scheduler.ts",
-    "epic:plan": "tsx src/epic/episodePlanner.ts > plans/season.json"
+    "epic:plan": "tsx src/epic/episodePlanner.ts > plans/season.json",
+    "ml:train": "tsx src/ml/socialRank.ts --train",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@babel/runtime": "^7.25.0",

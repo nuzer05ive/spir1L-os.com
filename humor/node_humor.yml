@@ -1,0 +1,792 @@
+node_00:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: "Alice"
+  glyph: "A"
+  sample_joke: "Why did the dragon laugh? Because it finally 'got' the knight!"
+  string_bias: []
+node_01:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_02:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_03:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_04:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_05:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_06:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_07:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_08:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_09:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_10:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_11:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_12:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_13:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_14:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_15:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_16:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_17:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_18:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_19:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_20:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_21:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_22:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_23:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_24:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_25:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_26:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_27:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_28:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_29:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_30:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_31:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_32:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_33:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_34:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_35:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_36:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_37:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_38:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_39:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_40:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_41:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_42:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_43:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_44:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_45:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_46:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_47:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_48:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_49:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_50:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_51:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_52:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_53:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_54:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_55:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_56:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_57:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_58:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_59:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_60:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_61:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_62:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_63:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_64:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_65:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_66:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_67:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_68:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_69:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_70:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_71:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_72:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_73:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_74:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_75:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_76:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_77:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_78:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_79:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_80:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_81:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_82:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_83:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_84:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_85:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_86:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []
+node_87:
+  humor:
+    tone_id: 0
+    geometry_id: 0
+    scenario_id: 0
+  famous_mirror: ""
+  glyph: ""
+  sample_joke: ""
+  string_bias: []

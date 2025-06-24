@@ -26,3 +26,5 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID:    ${{ secrets.NETLIFY_SITE_ID }}
+          TIKTOK_API_KEY:     ${{ secrets.TIKTOK_API_KEY }}
+          INSTAGRAM_APP_TOKEN: ${{ secrets.INSTAGRAM_APP_TOKEN }}
