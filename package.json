@@ -27,7 +27,8 @@
     "gen:assets": "tsx src/generation/run.ts",
     "replay:run": "tsx src/replay/scheduler.ts",
     "epic:plan": "tsx src/epic/episodePlanner.ts > plans/season.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verify": "pnpm tsc --noEmit && pnpm lex:test && pnpm parse:test && pnpm opt:test && pnpm pxk:test && pnpm hv221:test"
   },
   "devDependencies": {
     "@babel/runtime": "^7.25.0",
