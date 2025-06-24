@@ -14,7 +14,12 @@
     "gen:assets": "tsx src/generation/run.ts",
     "replay:run": "tsx src/replay/scheduler.ts",
     "epic:plan": "tsx src/epic/episodePlanner.ts > plans/season.json",
-    "verify": "pnpm tsc --noEmit && pnpm lex:test && pnpm parse:test && pnpm opt:test && pnpm pxk:test && pnpm hv221:test"
+    "verify": "pnpm tsc --noEmit && pnpm lex:test && pnpm parse:test && pnpm opt:test && pnpm pxk:test && pnpm hv221:test",
+    "lex:test": "jest --selectProjects lex",
+    "parse:test": "jest --selectProjects parse",
+    "opt:test": "jest --selectProjects opt",
+    "pxk:test": "jest --selectProjects pxk",
+    "hv221:test": "jest --selectProjects hv221"
   },
   "devDependencies": {
     "@babel/runtime": "^7.25.0",
