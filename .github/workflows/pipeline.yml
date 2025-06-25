@@ -28,7 +28,7 @@ jobs:
             <html><head><meta charset="utf-8"><title>Spir1L-OS Portal</title></head><body><h1>Spir1L-OS – Portal Binaries</h1><p>Build: </p></body></html>
           EOF
           shopt -s globstar
-          for f in $(ls **/*.rii); do
+          for f in **/*.rii; do
             base=$(basename "$f" .rii)
             node scripts/build-toolchain.js "$f" ".gate/dist/$base.riic"
           done

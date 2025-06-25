@@ -21,7 +21,7 @@ jobs:
         run: |
           mkdir -p .gate/dist
           shopt -s globstar
-          for f in \$(ls **/*.rii); do
+          for f in **/*.rii; do
             base=\$(basename "\$f" .rii)
             node scripts/build-toolchain.js "\$f" ".gate/dist/\$base.riic"
           done
