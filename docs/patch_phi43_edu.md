@@ -11,5 +11,5 @@ This patch augments the phi43 bloom spec with a Self-Spir1L curriculum and UI la
 Developers apply with:
 ```bash
 pnpm i
-pnpm -F reel-forge-vr dev
+pnpm -F reel-forge-vr dev -- --mock=mock_reel.mp4
 ```
