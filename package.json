@@ -7,6 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "gen:assets": "tsx src/generation/run.ts",
+    "hv221:run": "tsx src/harmonic-harness.ts",
     "replay:run": "tsx src/replay/scheduler.ts",
     "epic:plan": "tsx src/epic/episodePlanner.ts > plans/season.json",
     "ml:train": "tsx src/ml/socialRank.ts --train",
