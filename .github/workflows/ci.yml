@@ -1,30 +1,47 @@
-name: Build & Test
+name: CI
 
 on:
   push:
-    branches: [core]
+    branches: [ "**" ]
   pull_request:
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
+      # ── 1.  Check out repo ─────────────────────────────────────────────
       - uses: actions/checkout@v4
 
+      # ── 2.  Install pnpm (no auto-install) ─────────────────────────────
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
+      # ── 3.  Node 20 + pnpm cache ───────────────────────────────────────
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: pnpm
 
+      # ── 4.  Install deps ───────────────────────────────────────────────
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # ── 5.  Gate · compile RII → RIIC ──────────────────────────────────
+      - name: Gate • compile RII to RIIC
+        run: |
+          mkdir -p .gate/dist
+          shopt -s globstar
+          for f in **/*.rii; do
+            base=$(basename "$f" .rii)
+            node scripts/build-toolchain.js "$f" ".gate/dist/${base}.riic"
+          done
+          echo "✅ RIIC build complete"
+
+      # ── 6.  Run tests ──────────────────────────────────────────────────
       - name: Run tests
         run: pnpm test
