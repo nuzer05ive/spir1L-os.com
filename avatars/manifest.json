@@ -1,0 +1,22 @@
+{
+  "Prof. Monday": {
+    "voice": "alloy",
+    "style": "cheerful",
+    "vrm": "avatars/prof_monday.vrm"
+  },
+  "deweyD": {
+    "voice": "fable",
+    "style": "chat",
+    "vrm": "avatars/deweyD_chibi.vrm"
+  },
+  "sophiA Bloom": {
+    "voice": "nova",
+    "style": "soft",
+    "vrm": "avatars/bloom_fairy.vrm"
+  },
+  "KaP’t’1N N’1K": {
+    "voice": "alloy",
+    "style": "narration",
+    "vrm": "avatars/kaptn_n1k.vrm"
+  }
+}
