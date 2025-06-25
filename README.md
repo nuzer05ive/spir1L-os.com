@@ -27,3 +27,6 @@ On activation:
 3. On success, dist/ is deployed to Netlify (`spir1l-os.com`).
 4. SPA rewrite handled by `netlify.toml` (404 → index.html).
 
+
+### Testing
+Run `./scripts/test-harness.sh` to install dependencies and execute the Vitest/Jest suites along with the CI e2e stub.
