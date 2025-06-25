@@ -92,6 +92,7 @@ spforge publish --platform tiktok --dry-run
 
 | Gate | Command | Pass Criterion |
 |------|---------|----------------|
+| G‑0 Local Mock | `python scripts/synth_reel.py --mock` | creates mock_reel.mp4 w/out network calls |
 | G‑1 Compile | `pnpm i && pnpm test` | 100 % unit & type coverage |
 | G‑2 Demo Reel | `python scripts/synth_reel.py --demo` | 1280×720 MP4 ≤15 s, HUD + captions |
 | G‑3 Live Dashboard | `pnpm --filter trust-dashboard dev` | Care/Courage/M’rust live <5 s |
@@ -108,8 +109,12 @@ spforge publish --platform tiktok --dry-run
 OPENAI_KEY=
 HF_TOKEN=
 TIKTOK_TOKEN=
+IG_TOKEN=
+YOUTUBE_TOKEN=
 META_TOKEN=
 STRIPE_KEY=
+LS_API_KEY=
+LS_STORE_ID=
 MQTT_BROKER=
 NETLIFY_AUTH_TOKEN=
 RAILWAY_TOKEN=
