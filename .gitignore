@@ -4,3 +4,6 @@ build/
 dist/
 .env
 /spir1L-os.com/
+
+# keep lockfile
+!pnpm-lock.yaml
