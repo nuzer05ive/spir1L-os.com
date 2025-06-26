@@ -22,8 +22,8 @@ jobs:
           mkdir -p .gate/dist
           shopt -s globstar
           for f in **/*.rii; do
-            base=\$(basename "\$f" .rii)
-            node scripts/build-toolchain.js "\$f" ".gate/dist/\$base.riic"
+            base=$(basename "$f" .rii)
+            node scripts/build-toolchain.js "$f" ".gate/dist/$base.riic"
           done
 
       # ── Size gate (≤256 B each) ───────────────────────────────────────
