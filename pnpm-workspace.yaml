@@ -1,5 +1,7 @@
 packages:
   - ./
+  - apps/*
+  - spirill-rii-toolchain
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
