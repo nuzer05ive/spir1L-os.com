@@ -38,9 +38,15 @@ jobs:
 
       # ── Deploy to Netlify (production) ────────────────────────────────
       - name: Deploy to Netlify (prod)
-        run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID:    ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npx netlify deploy \
+            --prod \
+            --dir=.gate/dist \
+            --site=$NETLIFY_SITE_ID \
+            --message="CI deploy ${GITHUB_SHA::7}"
 
   comment:
     needs: gate
