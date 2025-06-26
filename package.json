@@ -11,7 +11,8 @@
     "replay:run": "tsx src/replay/scheduler.ts",
     "epic:plan": "tsx src/epic/episodePlanner.ts > plans/season.json",
     "ml:train": "tsx src/ml/socialRank.ts --train",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "codex:apply": "node scripts/run_codex_patch.js"
   },
   "devDependencies": {
     "@babel/runtime": "^7.25.0",
@@ -45,7 +46,8 @@
     "ts-node": "^10",
     "tsx": "^3.12.7",
     "typescript": "^5.4.2",
-    "vitest": "^1.0.0"
+    "vitest": "^1.0.0",
+    "codex-cli": "github:openai/codex-cli#main"
   },
   "packageManager": "pnpm@8.15.1"
 }

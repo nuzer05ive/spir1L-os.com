@@ -6,6 +6,7 @@ import { PedalBus } from './core/PedalBus';
 import { CreditManager } from './core/CreditManager';
 import { NodeSpawner } from './core/NodeSpawner';
 import { registerEnergyMeter } from './ui/energyMeter';
+import { registerAdminTablet } from './ui/AdminTablet';
 import toonFrag from './shaders/toon.glsl?raw';
 import rimFrag from './shaders/rimLight.glsl?raw';
 
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pedal = new PedalBus(credits);
   const spawner = new NodeSpawner(credits);
   registerEnergyMeter(credits);
+  registerAdminTablet();
   const rail = new AnimeRail(beatBus);
   const bloom = new BloomScheduler(beatBus);
   beatBus.start();
