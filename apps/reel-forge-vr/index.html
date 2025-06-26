@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reel Forge VR</title>
+  <script type="module" src="/src/main.ts"></script>
+</head>
+<body>
+  <a-scene>
+    <a-assets>
+      <audio id="theme" src="/spiral_os_theme.mp3"></audio>
+    </a-assets>
+
+    <a-entity id="cameraRig" position="0 1.6 0">
+      <a-camera wasd-controls-enabled="false"></a-camera>
+    </a-entity>
+
+    <a-box color="#FF4136" position="-1 1 -5"></a-box>
+    <a-box color="#2ECC40" position="1 1 -5"></a-box>
+    <a-box color="#0074D9" position="0 1 -7"></a-box>
+
+    <a-sky color="#111"></a-sky>
+  </a-scene>
+</body>
+</html>
