@@ -30,3 +30,12 @@ On activation:
 
 ### Testing
 Run `./scripts/test-harness.sh` to install dependencies and execute the Vitest/Jest suites along with the CI e2e stub.
+
+### VR assets
+The VR demo uses procedurally generated assets. Before running the dev server in
+`apps/reel-forge-vr`, generate the models and tunnel texture with:
+
+```bash
+python scripts/gen_placeholders.py
+python scripts/bake_tunnel.py
+```
