@@ -2,6 +2,10 @@ import 'aframe';
 import { BeatBus } from './core/BeatBus';
 import { AnimeRail } from './core/AnimeRail';
 import { BloomScheduler } from './core/BloomScheduler';
+import { PedalBus } from './core/PedalBus';
+import { CreditManager } from './core/CreditManager';
+import { NodeSpawner } from './core/NodeSpawner';
+import { registerEnergyMeter } from './ui/energyMeter';
 import toonFrag from './shaders/toon.glsl?raw';
 import rimFrag from './shaders/rimLight.glsl?raw';
 
@@ -57,10 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('theme') as HTMLAudioElement;
   if (audio) audio.play();
 
-  const bus = new BeatBus();
-  const rail = new AnimeRail(bus);
-  const bloom = new BloomScheduler(bus);
+  const beatBus = new BeatBus();
+  const credits = new CreditManager();
+  const pedal = new PedalBus(credits);
+  const spawner = new NodeSpawner(credits);
+  registerEnergyMeter(credits);
+  const rail = new AnimeRail(beatBus);
+  const bloom = new BloomScheduler(beatBus);
+  beatBus.start();
   rail.start();
   bloom.start();
-  bus.start();
+
+  if ((window as any).initPedalSimulator) {
+    (window as any).initPedalSimulator(document.querySelector('[pedal-simulator]'));
+  }
+
+  (window as any).spawnTest = (t: string)=>spawner.request(t as any);
 });
