@@ -22,8 +22,8 @@ jobs:
           mkdir -p .gate/dist
           shopt -s globstar
           for f in **/*.rii; do
-            base=\$(basename "\$f" .rii)
-            node scripts/build-toolchain.js "\$f" ".gate/dist/\$base.riic"
+            base=$(basename "$f" .rii)
+            node scripts/build-toolchain.js "$f" ".gate/dist/$base.riic"
           done
 
       # ── Size gate (≤256 B each) ───────────────────────────────────────
@@ -38,9 +38,15 @@ jobs:
 
       # ── Deploy to Netlify (production) ────────────────────────────────
       - name: Deploy to Netlify (prod)
-        run: npx netlify deploy --prod --dir=.gate/dist --site=$NETLIFY_SITE_ID
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID:    ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npx netlify deploy \
+            --prod \
+            --dir=.gate/dist \
+            --site=$NETLIFY_SITE_ID \
+            --message="CI deploy ${GITHUB_SHA::7}"
 
   comment:
     needs: gate
