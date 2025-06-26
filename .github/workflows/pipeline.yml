@@ -16,7 +16,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm hv221:run
      # - run: pnpm pxk:simulate --peak 1.2 --duration 10
-      - run: pnpm wc:build packages/example.rii --out build/example.riic
+     # - run: pnpm wc:build packages/example.rii --out build/example.riic
       - run: pnpm spiral:e2e --scenario ci
 
       # ── Build deploy folder ───────────────────────────────────────────
