@@ -5,5 +5,9 @@ dist/
 .env
 /spir1L-os.com/
 
+# Generated VR assets
+apps/reel-forge-vr/public/models/*.glb
+apps/reel-forge-vr/public/textures/*.hdr
+
 # keep lockfile
 !pnpm-lock.yaml
