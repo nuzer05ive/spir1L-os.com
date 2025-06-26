@@ -33,9 +33,13 @@ Run `./scripts/test-harness.sh` to install dependencies and execute the Vitest/J
 
 ### VR assets
 The VR demo uses procedurally generated assets. Before running the dev server in
-`apps/reel-forge-vr`, generate the models and tunnel texture with:
+`apps/reel-forge-vr`, generate the avatars and tunnel texture with:
 
 ```bash
-python scripts/gen_placeholders.py
+python scripts/gen_anime_avatars.py  # create crew placeholders
 python scripts/bake_tunnel.py
 ```
+
+To add new crew members or swap in custom art, modify `scripts/gen_anime_avatars.py`
+or replace the generated `.glb` files under `apps/reel-forge-vr/public/models/`.
+Rerun the script whenever avatar geometry changes.
