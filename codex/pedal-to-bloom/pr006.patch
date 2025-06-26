@@ -1,0 +1,244 @@
+diff --git a/README_VR.md b/README_VR.md
+new file mode 100644
+index 0000000..e3d944d
+--- /dev/null
++++ b/README_VR.md
+@@ -0,0 +1,22 @@
++# Pedal-to-Bloom VR Controls
++
++This expansion lets you power the Spiral world with real or simulated pedal energy.
++
++## Connecting a cadence sensor
++1. Enable Bluetooth on your device.
++2. Pair your ANT+/BLE cadence sensor.
++3. Start the VR scene – credits will rise as you pedal.
++
++## Keyboard / Desktop simulator
++If you do not have a cadence sensor attached, use the built-in simulator:
++
++- Hold the **S** key or press the mouse button over the scene to spin.
++- Scroll the mouse wheel to tweak RPM.
++
++Credits convert following:
++
++```
++C = ceil( phi*(1+0.000437) ^ (RPM/30) )
++```
++
++Spawn a test node with `window.spawnTest('gptNode')` in the browser console.
+diff --git a/apps/reel-forge-vr/index.html b/apps/reel-forge-vr/index.html
+index c96def0..84c86ce 100644
+--- a/apps/reel-forge-vr/index.html
++++ b/apps/reel-forge-vr/index.html
+@@ -4,6 +4,7 @@
+   <meta charset="UTF-8" />
+   <title>Reel Forge VR</title>
+   <script type="module" src="/src/main.ts"></script>
++  <script type="module" src="/scripts/pedal_sim.js"></script>
+ </head>
+ <body>
+   <a-scene>
+@@ -29,6 +30,9 @@
+     <a-entity gltf-model="#model-dewey" material="shader: toon; baseColor: #99ff99" position="1.5 1 -3"></a-entity>
+     <a-entity gltf-model="#model-bloom" material="shader: toon; baseColor: #ff99ff" position="0 1.5 -3.5"></a-entity>
+ 
++    <a-entity id="pedalSim" pedal-simulator position="0 0 0"></a-entity>
++    <a-entity id="meter" energy-meter position="0.8 1.5 -1"></a-entity>
++
+     <a-sky color="#111"></a-sky>
+   </a-scene>
+ </body>
+diff --git a/apps/reel-forge-vr/src/core/CreditManager.ts b/apps/reel-forge-vr/src/core/CreditManager.ts
+new file mode 100644
+index 0000000..e3570bb
+--- /dev/null
++++ b/apps/reel-forge-vr/src/core/CreditManager.ts
+@@ -0,0 +1,25 @@
++export class CreditManager extends EventTarget {
++  private _credits = 0;
++
++  add(v:number){
++    this._credits += v;
++    this.dispatchEvent(new CustomEvent('credit-earned',{detail:v}));
++    this.update();
++  }
++
++  spend(v:number):boolean{
++    if(this._credits>=v){
++      this._credits -= v;
++      this.dispatchEvent(new CustomEvent('credit-spent',{detail:v}));
++      this.update();
++      return true;
++    }
++    return false;
++  }
++
++  get value(){ return this._credits; }
++
++  private update(){
++    this.dispatchEvent(new CustomEvent('update',{detail:this._credits}));
++  }
++}
+diff --git a/apps/reel-forge-vr/src/core/NodeSpawner.ts b/apps/reel-forge-vr/src/core/NodeSpawner.ts
+new file mode 100644
+index 0000000..e528f49
+--- /dev/null
++++ b/apps/reel-forge-vr/src/core/NodeSpawner.ts
+@@ -0,0 +1,17 @@
++import { CreditManager } from './CreditManager';
++
++const COSTS = { gptNode:5, meshChunk:3, shaderPass:1 } as const;
++export type SpawnType = keyof typeof COSTS;
++
++export class NodeSpawner {
++  constructor(private credits:CreditManager){}
++
++  request(type:SpawnType){
++    const cost=COSTS[type];
++    if(this.credits.spend(cost)){
++      console.log('spawn',type);
++    }else{
++      console.log('Pedal to bloom further!');
++    }
++  }
++}
+diff --git a/apps/reel-forge-vr/src/core/PedalBus.ts b/apps/reel-forge-vr/src/core/PedalBus.ts
+new file mode 100644
+index 0000000..a961dec
+--- /dev/null
++++ b/apps/reel-forge-vr/src/core/PedalBus.ts
+@@ -0,0 +1,31 @@
++import { CreditManager } from './CreditManager';
++
++export type RpmListener = (rpm:number)=>void;
++
++export class PedalBus {
++  private listeners:RpmListener[]=[];
++  private phiTilt = 1.61803398875 * (1 + 0.000437);
++
++  constructor(private credits:CreditManager){
++    const el=document.querySelector('[pedal-simulator]')||document.body;
++    el.addEventListener('rpm',(e:Event)=>{
++      const rpm=(e as CustomEvent<number>).detail||0;
++      this.handle(rpm);
++    });
++    // placeholder for real sensor hookup
++  }
++
++  private handle(rpm:number){
++    this.emit(rpm);
++    const energy=Math.ceil(Math.pow(this.phiTilt, rpm/30));
++    if(energy>0) this.credits.add(energy);
++  }
++
++  private emit(rpm:number){
++    this.listeners.forEach(l=>l(rpm));
++  }
++
++  on(l:RpmListener){
++    this.listeners.push(l);
++  }
++}
+diff --git a/apps/reel-forge-vr/src/main.ts b/apps/reel-forge-vr/src/main.ts
+index c377427..dc8982c 100644
+--- a/apps/reel-forge-vr/src/main.ts
++++ b/apps/reel-forge-vr/src/main.ts
+@@ -2,6 +2,10 @@ import 'aframe';
+ import { BeatBus } from './core/BeatBus';
+ import { AnimeRail } from './core/AnimeRail';
+ import { BloomScheduler } from './core/BloomScheduler';
++import { PedalBus } from './core/PedalBus';
++import { CreditManager } from './core/CreditManager';
++import { NodeSpawner } from './core/NodeSpawner';
++import { registerEnergyMeter } from './ui/energyMeter';
+ import toonFrag from './shaders/toon.glsl?raw';
+ import rimFrag from './shaders/rimLight.glsl?raw';
+ 
+@@ -57,10 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
+   const audio = document.getElementById('theme') as HTMLAudioElement;
+   if (audio) audio.play();
+ 
+-  const bus = new BeatBus();
+-  const rail = new AnimeRail(bus);
+-  const bloom = new BloomScheduler(bus);
++  const beatBus = new BeatBus();
++  const credits = new CreditManager();
++  const pedal = new PedalBus(credits);
++  const spawner = new NodeSpawner(credits);
++  registerEnergyMeter(credits);
++  const rail = new AnimeRail(beatBus);
++  const bloom = new BloomScheduler(beatBus);
++  beatBus.start();
+   rail.start();
+   bloom.start();
+-  bus.start();
++
++  if ((window as any).initPedalSimulator) {
++    (window as any).initPedalSimulator(document.querySelector('[pedal-simulator]'));
++  }
++
++  (window as any).spawnTest = (t: string)=>spawner.request(t as any);
+ });
+diff --git a/apps/reel-forge-vr/src/ui/energyMeter.ts b/apps/reel-forge-vr/src/ui/energyMeter.ts
+new file mode 100644
+index 0000000..301a7ad
+--- /dev/null
++++ b/apps/reel-forge-vr/src/ui/energyMeter.ts
+@@ -0,0 +1,22 @@
++import { CreditManager } from '../core/CreditManager';
++import 'aframe';
++
++declare const AFRAME:any;
++
++export function registerEnergyMeter(manager:CreditManager){
++  AFRAME.registerComponent('energy-meter',{
++    schema:{max:{type:'int',default:100}},
++    init:function(){
++      const bar=document.createElement('a-plane');
++      bar.setAttribute('color','#00ff99');
++      bar.setAttribute('width',0.1);
++      bar.setAttribute('height',1);
++      this.el.appendChild(bar);
++      manager.addEventListener('update',(e:Event)=>{
++        const val=(e as CustomEvent<number>).detail;
++        const fill=Math.min(1,val/this.data.max);
++        bar.setAttribute('scale',`1 ${fill} 1`);
++      });
++    }
++  });
++}
+diff --git a/scripts/pedal_sim.js b/scripts/pedal_sim.js
+new file mode 100644
+index 0000000..b9aacdc
+--- /dev/null
++++ b/scripts/pedal_sim.js
+@@ -0,0 +1,29 @@
++export function initPedalSimulator(el=document.body){
++  if(!el) return;
++  let rpm=0, timer=null;
++  function emit(){
++    el.dispatchEvent(new CustomEvent('rpm',{detail:rpm}));
++  }
++  function start(val){
++    rpm=val; emit();
++    if(timer) return;
++    timer=setInterval(()=>emit(),1000);
++  }
++  function stop(){
++    clearInterval(timer);timer=null;rpm=0;emit();
++  }
++  el.addEventListener('mousedown',()=>start(60));
++  el.addEventListener('mouseup',stop);
++  el.addEventListener('mouseleave',stop);
++  el.addEventListener('wheel',e=>{
++    rpm=Math.max(0, Math.min(120, rpm + (e.deltaY<0?5:-5)));
++    emit();
++  });
++  window.addEventListener('keydown',e=>{ if(e.key==='s') start(60); });
++  window.addEventListener('keyup',e=>{ if(e.key==='s') stop(); });
++}
++
++// expose for modules loaded via script tag
++if (typeof window !== 'undefined') {
++  (window as any).initPedalSimulator = initPedalSimulator;
++}

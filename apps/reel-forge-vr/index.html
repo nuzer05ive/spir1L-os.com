@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Reel Forge VR</title>
   <script type="module" src="/src/main.ts"></script>
+  <script type="module" src="/scripts/pedal_sim.js"></script>
 </head>
 <body>
   <a-scene>
@@ -28,6 +29,9 @@
     <a-entity gltf-model="#model-prof" material="shader: toon; baseColor: #ffff99" position="-1.5 1 -3"></a-entity>
     <a-entity gltf-model="#model-dewey" material="shader: toon; baseColor: #99ff99" position="1.5 1 -3"></a-entity>
     <a-entity gltf-model="#model-bloom" material="shader: toon; baseColor: #ff99ff" position="0 1.5 -3.5"></a-entity>
+
+    <a-entity id="pedalSim" pedal-simulator position="0 0 0"></a-entity>
+    <a-entity id="meter" energy-meter position="0.8 1.5 -1"></a-entity>
 
     <a-sky color="#111"></a-sky>
   </a-scene>
